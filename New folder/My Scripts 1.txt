@@ -1,0 +1,131 @@
+
+App ID
+572274
+
+Access key
+
+PSumx_V7b_a3DNa46G8zFrdCwiVkjwYy5Kp5Q6oel48
+
+Secret Key
+
+Xbdi9uHc_zb-1eblCyv22toHDjTTJhvA33NlKHaaPSw
+
+
+
+
+ssh -i {you-keypair-name}.pem -L 8080:localhost:8080 ubuntu@{your-ec2-instances-public-IP}
+
+ssh -i "DENAOMAN-keypair.pem" -L 8080:localhost:8080 ubuntu@ec2-52-211-66-86.eu-west-1.compute.amazonaws.com
+ssh -i "DENAOMAN-keypair.pem" ubuntu@ec2-52-211-66-86.eu-west-1.compute.amazonaws.com
+
+
+ssh -i DENAOMAN-keypair.pem -L 8080:localhost:8080 ubuntu@ec2-52-211-66-86.eu-west-1.compute.amazonaws.com
+
+
+- /home/ubuntu/EDSA-airflow/initial_pipeline_creation
+
+Airflow dag connection
+http://ec2-52-211-66-86.eu-west-1.compute.amazonaws.com:8080
+
+
+
+-----------------------------------------------------------
+ssh -i "DENAOMAN-keypair.pem" ubuntu@ec2-52-211-66-86.eu-west-1.compute.amazonaws.com
+restr
+
+
+
+
+docker rm -f  airflow-airflow-webserver-1
+airflow-airflow-webserver-1
+
+ 
+ 
+ /var/log/unattended-upgrades/unattended-upgrades.log
+ 
+ 
+ 
+ 
+KILL 8080
+ 
+sudo lsof -t -i:8080
+ 
+sudo - command to ask admin privilege(user id and password).
+lsof - list of files(Also used for to list related processes)
+-t - show only process ID
+-i - show only internet connections related process
+:8080 - show only processes in this port number
+
+
+- results - PIDs
+
+[ubuntu@ip-172-31-40-245:~$ sudo lsof -t -i:8080
+	1154
+	1173
+]
+
+
+KILL PIDs
+sudo kill -9 <PID>
+
+kill - command to kill the process
+-9 - forcefully
+
+-example
+sudo kill -9 1173
+ 
+ 
+ 
+ 0 - 65535
+ 
+ 
+ --------------
+ AWS CLI install and configure
+ 
+ >aws --version
+ 
+ >aws configure
+ 
+ 
+ $ aws configure
+AWS Access Key ID [None]: 
+AWS Secret Access Key [None]: 
+Default region name [None]: eu-west-1
+Default output format [None]: json
+
+
+-- list of S3 bucket
+>aws S3 ls
+>aws S3 ls [S3bucket]
+
+
+-------
+run python on the CLI
+
+ch
+
+
+
+2304PT-mbd-predict-naomi-mangoejane-lambda
+
+------------------------------------------------
+
+airflow > dags
+
+cd airflow
+cd dags
+
+
+touch new_dag.py
+
+nano new_dag.py
+
+------------------------------
+select * from historical_stocks_data
+
+select count(*) from historical_stocks_data
+
+delete from historical_stocks_data
+
+
+----------------------------------------------

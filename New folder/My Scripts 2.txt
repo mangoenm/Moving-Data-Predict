@@ -1,0 +1,113 @@
+- SNS
+
+2301ft-mbd-predict-naomi-mangoejane-SNS
+
+- S3 bucket
+
+2301FT-mbd-predict-naomi-mangoejane-s3-source
+
+- S3 monitored bucket
+
+2301FT-mbd-predict-naomi-mangoejane-monitored-bucket
+
+
+
+
+2304-NAOMAN-mbd-predict-security-group
+
+
+-------------------------------------------------------------------------------------------
+
+--Console/ CMD
+- change roo to ubuntu
+ssh -i "DENAOMAN-keypair.pem" ubuntu@ec2-54-247-225-255.eu-west-1.compute.amazonaws.com
+ssh -i "DENAOMAN-keypair.pem" root@ec2-54-247-225-255.eu-west-1.compute.amazonaws.com
+
+ssh -i "DENAOMAN-keypair.pem" ubuntu@ec2-52-211-66-86.eu-west-1.compute.amazonaws.com
+
+
+
+--mount S3 bucket
+
+--Change IAM role attached to instance - Allow EC2 to have certain permissions
+Instance > Actions > Security > Modify IAM role
+ - MBD_Predict_Mounting_Role
+ 
+Associate an IP addess to always use the same one 
+Elastic IPs
+
+
+Steps to mount S3 Bucket
+-- S3FS Fuse filesystem application to mount the source S3 bucket to your EC2 instance.
+
+s3fs -o iam_role=MBD_Predict_Mounting_Role -o url="https://s3.eu-west-1.amazonaws.com" -o endpoint=eu-west-1 -o allow_other -o curldbg <bucket-name> ~/s3-drive
+ 
+-- <bucket-name> 
+
+s3fs -o iam_role=MBD_Predict_Mounting_Role -o url="https://s3.eu-west-1.amazonaws.com" -o endpoint=eu-west-1 -o allow_other -o curldbg bucket https://2301pt-mbd-predict-naomi-mangoejane-s3-source.s3.eu-west-1.amazonaws.com/ ~/s3-drive
+
+
+
+s3fs 2301pt-mbd-predict-naomi-mangoejane-s3-source /path/to/mountpoint -o passwd_file=/path/passwd-s3fs
+
+s3fs#<2301pt-mbd-predict-naomi-mangoejane-s3-source> /home/ubuntu/CompanyNames fuse _netdev,allow_other 0 0
+
+
+https://2301pt-mbd-predict-naomi-mangoejane-s3-source.s3.eu-west-1.amazonaws.com/
+
+s3://2301pt-mbd-predict-naomi-mangoejane-s3-source/CompanyNames/
+
+
+mkdir /mnt/2301pt-mbd-predict-naomi-mangoejane-s3-source
+mount-s3 2301pt-mbd-predict-naomi-mangoejane-s3-source bucket /mnt/2301pt-mbd-predict-naomi-mangoejane-s3-source
+sudo mkdir /mnt/2301pt-mbd-predict-naomi-mangoejane-s3-source
+
+
+s3fs -o iam_role="MBD_Predict_Mounting_Role" -o url="https://s3.eu-west-1.amazonaws.com" -o endpoint=eu-west-1 -o allow_other -o dbglevel=info -o curldbg 2301pt-mbd-predict-naomi-mangoejane-s3-source mnt
+
+
+mount-s3 2301pt-mbd-predict-naomi-mangoejane-s3-source ~/mnt
+
+
+
+
+
+mkdir ~/mnt moving_big_data
+mount-s3 DOC-EXAMPLE-BUCKET ~/mnt
+
+
+
+which s3fs
+
+cd ~/ && mkdir moving_big_data
+
+s3fs -o iam_role="MBD_Predict_Mounting_Role" -o url="https://s3.eu-west-1.amazonaws.com" -o endpoint=eu-west-1 -o dbglevel=info -o curldbg 2301pt-mbd-predict-naomi-mangoejane-s3-source moving_big_data
+
+ls -Rla moving_big_data/
+
+
+echo 's3fs -o iam_role="MBD_Predict_Mounting_Role" -o url="https://s3.eu-west-1.amazonaws.com" -o endpoint=eu-west-1 -o dbglevel=info -o curldbg 2301pt-mbd-predict-naomi-mangoejane-s3-source moving_big_data' > mount_moving_big_data.sh
+
+-- see content of the script
+cat mount_moving_big_data.sh
+
+sudo chmod +x mount_moving_big_data.sh
+
+crontab -e
+
+@reboot ~/mount_moving_big_data.sh
+
+
+
+----------------
+Airflow Setup:
+
+sudo apt update
+sudo apt install -y python3-pip - already installed
+sudo apt install -y sqlite3
+
+sudo apt install -y libpq-dev  - already installed
+sudo apt install --upgrade awscli  - already installed
+pip3 install boto3
+
+sudo pip3 install virtualenv

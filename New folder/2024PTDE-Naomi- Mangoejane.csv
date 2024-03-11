@@ -1,0 +1,2 @@
+Name,Surname,Source_bucket,Monitored_bucket,SNS_topic,Static_IP
+Naomi,Mangoejane,2301pt-mbd-predict-naomi-mangoejane-s3-source,2301ft-mbd-predict-naomi-mangoejane-monitored-bucket,2301ft-mbd-predict-naomi-mangoejane-SNS,52.211.66.86
